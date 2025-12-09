@@ -1,19 +1,30 @@
-# Use official Python image
+# Development Dockerfile
 FROM python:3.9
 
-# Set the working directory inside the container
+# Keep Python behavior predictable in containers
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+
 WORKDIR /app
 
-# Copy project files
+# Copy only requirements first to leverage layer cache
+COPY requirements.txt /app/requirements.txt
+
+# Install dependencies (include dev deps in requirements-dev.txt if you have one)
+RUN pip install --upgrade pip setuptools wheel \
+    && pip install --no-cache-dir -r /app/requirements.txt
+
+# Copy the rest of the project (optional for image-only workflows;
+# in compose you'll typically mount the source as a volume)
 COPY . /app
 
-# Install dependencies
-RUN pip install --upgrade pip && pip install -r requirements.txt
+RUN apt-get update \
+ && apt-get install -y --no-install-recommends libpq-dev postgresql-client \
+ && rm -rf /var/lib/apt/lists/*
 
-# Expose port 8000 for Django
+# Expose Django default dev port
 EXPOSE 8000
 
-# Run Django server
 
-CMD ["python3", "manage.py", "runserver", "0.0.0.0:8000"]
-
+# Default command for development: runserver with 0.0.0.0 so it's reachable from host
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
