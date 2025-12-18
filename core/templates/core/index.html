@@ -1,0 +1,40 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>{% block title %}Tru-Tone{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'core/css/styles.css' %}">
+</head>
+<body>
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="/">Tru-Tone Metal</a>
+
+    <button id="navToggle" class="nav-toggle" aria-controls="siteNav" aria-expanded="false" aria-label="Open navigation">
+      <span class="hamburger" aria-hidden="true"></span>
+    </button>
+
+    <nav id="siteNav" class="site-nav" aria-hidden="true">
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/about/">About Us</a></li>
+        <li><a href="/services/">Services</a></li>
+        <li><a href="/contact/">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+  <main class="container">
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">© Tru-Tone Metal</div>
+  </footer>
+
+  <script src="{% static 'core/js/app.js' %}"></script>
+</body>
+</html>

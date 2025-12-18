@@ -1,14 +1,15 @@
+version: "3.8"
+
 services:
   db:
     image: postgres:15-alpine
     restart: unless-stopped
     env_file:
       - ../.env
-    # keep environment only for defaults or overrides; not required if .env contains them
     environment:
-      POSTGRES_DB: ${POSTGRES_DB:-trutone}
-      POSTGRES_USER: ${POSTGRES_USER:-trutone}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-changeme}
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
       interval: 5s
@@ -24,7 +25,6 @@ services:
     image: trutone-web
     env_file:
       - ../.env
-    # prefer DATABASE_URL in .env; keep only if you need to override
     environment:
       DATABASE_URL: ${DATABASE_URL:-postgres://trutone:changeme@db:5432/trutone}
     depends_on:
@@ -35,6 +35,8 @@ services:
     volumes:
       - static_volume:/app/static
       - media_volume:/app/media
+      # for dev, optionally bind-mount source:
+      # - ../:/app:delegated
     restart: unless-stopped
 
   adminer:
@@ -44,6 +46,8 @@ services:
       - "8080:8080"
     depends_on:
       - db
+    volumes:
+      - ../:/app:delegated
 
 volumes:
   db_data:

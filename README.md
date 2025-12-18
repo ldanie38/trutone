@@ -33,9 +33,40 @@ docker compose --env-file .env -f docker/docker-compose.yml run --rm web python 
 # verify tables exist
 docker compose --env-file .env -f docker/docker-compose.yml exec db psql -U trutone -d trutone -c "\dt"
 
+# from root
+docker compose --env-file .env -f docker/docker-compose.yml ps
+
+# 1) Build and start DB + web in background
+docker compose --env-file .env -f docker/docker-compose.yml up -d --build
+
+# 2) Watch logs for both services so you can see DB become healthy and web start
+docker compose --env-file .env -f docker/docker-compose.yml logs --tail=200 -f db web
+
+# run migrations
+docker compose --env-file .env -f docker/docker-compose.yml exec web python manage.py migrate
+
+# (optional) create admin user
+docker compose --env-file .env -f docker/docker-compose.yml exec -it web python manage.py createsuperuser
+
+# go to repo root, then restart web
+cd /Users/luadaniele/trutone/trutone/trutone_repo
+docker compose --env-file .env -f docker/docker-compose.yml up -d --build
+docker compose --env-file .env -f docker/docker-compose.yml logs --tail=200 -f web
+
+# quick check
+curl -i http://localhost:8000/
+
+# verbose debug
+curl -v http://localhost:8000/
+
 
 # Access Django admin in your browser
 # Open: http://localhost:8000/admin/ and log in with the superuser you created (username root in your run).
+
+
+# You should see the HTML from core/index.html (or the 200 response and your page content).
+curl -i http://localhost:8000/
+
 
 # collect static files if needed
 docker compose --env-file .env -f docker/docker-compose.yml run --rm web python manage.py collectstatic --noinput
@@ -49,13 +80,23 @@ docker compose --env-file .env -f docker/docker-compose.yml run --rm web sh -c '
 # tail logs
 docker compose --env-file .env -f docker/docker-compose.yml logs -f db web
 
-#Ruff#
+# print project urls
+sed -n '1,200p' trutone/urls.py
 
-Quick install & usage
-Install pre‑commit: pip install pre-commit (or use your package manager).
 
-Install hooks in your repo: pre-commit install.
 
-Run on all files: pre-commit run --all-files.
+# print view
+sed -n '1,200p' core/views.py
 
-In CI, add a step to run pre-commit run --all-files (or ruff check .) to fail builds on lint errors.
+# print template
+sed -n '1,200p' core/templates/core/index.html
+
+# restart dev server (if using Docker compose)
+docker compose --env-file .env -f docker/docker-compose.yml exec web pkill -f runserver || true
+docker compose --env-file .env -f docker/docker-compose.yml exec -d web python manage.py runserver 0.0.0.0:8000
+
+# or run locally
+python manage.py runserver 8000
+
+# then test
+curl -i http://localhost:8000/
