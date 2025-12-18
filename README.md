@@ -36,11 +36,6 @@ docker compose --env-file .env -f docker/docker-compose.yml exec db psql -U trut
 # from root
 docker compose --env-file .env -f docker/docker-compose.yml ps
 
-# 1) Build and start DB + web in background
-docker compose --env-file .env -f docker/docker-compose.yml up -d --build
-
-# 2) Watch logs for both services so you can see DB become healthy and web start
-docker compose --env-file .env -f docker/docker-compose.yml logs --tail=200 -f db web
 
 # run migrations
 docker compose --env-file .env -f docker/docker-compose.yml exec web python manage.py migrate
@@ -48,10 +43,26 @@ docker compose --env-file .env -f docker/docker-compose.yml exec web python mana
 # (optional) create admin user
 docker compose --env-file .env -f docker/docker-compose.yml exec -it web python manage.py createsuperuser
 
-# go to repo root, then restart web
+# go to repo root, then restart web !!!!!!!!!!!!!!!!!!! ----- !!!!!!!!!!!!!!!!
 cd /Users/luadaniele/trutone/trutone/trutone_repo
 docker compose --env-file .env -f docker/docker-compose.yml up -d --build
 docker compose --env-file .env -f docker/docker-compose.yml logs --tail=200 -f web
+
+# build and resTART
+docker compose -f docker/docker-compose.yml --env-file .env build web
+docker compose -f docker/docker-compose.yml --env-file .env up -d web
+
+
+# check containers
+docker compose -f docker/docker-compose.yml --env-file .env ps
+# follow logs
+docker compose -f docker/docker-compose.yml --env-file .env logs -f web
+# run migrations and create superuser
+docker compose -f docker/docker-compose.yml --env-file .env exec web python manage.py migrate
+docker compose -f docker/docker-compose.yml --env-file .env exec web python manage.py createsuperuser
+
+
+
 
 # quick check
 curl -i http://localhost:8000/
@@ -91,9 +102,7 @@ sed -n '1,200p' core/views.py
 # print template
 sed -n '1,200p' core/templates/core/index.html
 
-# restart dev server (if using Docker compose)
-docker compose --env-file .env -f docker/docker-compose.yml exec web pkill -f runserver || true
-docker compose --env-file .env -f docker/docker-compose.yml exec -d web python manage.py runserver 0.0.0.0:8000
+
 
 # or run locally
 python manage.py runserver 8000
