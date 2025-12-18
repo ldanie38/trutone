@@ -49,12 +49,24 @@ table {
 
 /* CSS variables*/
 
-:root { --dark_grey: #343a40; 
-    --white: #fafaff;
+:root {
+  --title-font-family: "good-times", sans-serif;
+ /*  "industry", sans-serif; */
+ /*"good-times-bad-times", sans-serif;*/
 
+  --title-font-weight: 700;
+  --title-font-style: normal;
 
+  --nav-link-family: "Verdana", sans-serif;
+  --nav-link-weight: 500;
+  --nav-link-style: normal;
 
+  --dark_grey: #415a77;
+  --white: #fafaff;
+  --red: #d90429;
 
+  --dark_grey-rgb: 52, 58, 64;
+  --white-rgb: 250, 250, 255;
 }
 
 
@@ -71,9 +83,6 @@ body {
   min-height: 100vh;
 }
 
-body{
-    background-color: antiquewhite;
-}
 
 /* main content grows to fill available space */
 main {
@@ -134,10 +143,11 @@ main {
   align-items: center;
   margin: 0;
   padding: 0;
+  font-family: var(--nav-link-family);
 }
 
 .site-nav.open a {
-  font-size: 1.25rem;               /* larger, easier to tap */
+  font-size: 1rem;             
   text-decoration: none;
   color: inherit;
 }
@@ -161,10 +171,11 @@ main {
   top: 0;
   left: 0;
   right: 0;
-color:var(--white);
+  color:var(--white);
   background-color: var(--dark_grey);
   z-index: 1000;
   box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+
 }
 
 
@@ -181,32 +192,108 @@ color:var(--white);
 
 .site-nav a{
     color: var(--white);
+    
 }
 
 .brand {
-  font-weight: 700;
-  font-size: 1.125rem;
+
+  font-family: var(--title-font-family); 
+  font-weight:500;
+  font-size: 1.2rem;
+   font-style: var(--title-font-style); 
+   line-height: 1.1;
   text-decoration: none;
   color: var(--white)
-
-
 }
 
-/* Desktop: hide hamburger, show nav as horizontal menu */
 @media (min-width: 768px) {
-  .nav-toggle { display: none; }           /* hide hamburger button */
-  .site-nav { display: block !important; } /* show nav */
-  .site-nav ul { display: flex; gap: 1rem; align-items: center;margin: 0; padding: 0; }
-  .site-nav li { margin: 0; }
-  .site-nav a { padding: 0.5rem 0; display: inline-block; padding: 0.5rem 0;text-decoration: none; color: var(--white) }
+  .nav-toggle {
+    display: none; /* hide hamburger button */
+  }
+
+  .site-nav {
+    display: block !important; /* show nav */
+  }
+
+  .site-nav ul {
+    display: flex;
+    gap: 2.5rem;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+  }
+
+  .site-nav li {
+    margin: 0;
+  }
+
+  .site-nav a {
+    padding: 0.5rem 0;
+    display: inline-block;
+    text-decoration: none;
+    color: var(--white);
+  }
+
+  /* desktop nav link font settings */
+  .site-header .site-nav ul li a {
+    font-family: var(--nav-link-family);
+    font-weight: var(--nav-link-weight);
+    font-style: var(--nav-link-style);
+    color: var(--white);
+    text-decoration: none;
+    padding: 0.5rem 0;
+    display: inline-block;
+  }
+
+  /* brand (site title) styling for desktop */
+  .brand {
+    font-family: var(--title-font-family);
+    font-weight: var(--title-font-weight);
+    font-style: var(--title-font-style);
+    font-size: 2rem;
+    line-height: 1.1;
+    text-decoration: none;
+    color: var(--white);
+  }
+
+.site-header {
+  background: var(--dark_grey);
+  -webkit-mask-image: linear-gradient(to bottom,
+    rgba(0,0,0,1) 0%,
+    rgba(0,0,0,0.95) 80%,
+    rgba(0,0,0,0.4) 100%);
+  mask-image: linear-gradient(to bottom,
+    rgba(0,0,0,1) 0%,
+    rgba(0,0,0,0.94) 80%,
+    rgba(0,0,0,0.3) 100%);
+}
+
+
 
 }
+
+
+
+
+/* end of nav media*/
+
 
 .site-footer {
   flex-shrink: 0;
-  background: #111;
-  color: #fff;
+  background:var(--dark_grey);
+  color:var(--white);
   padding: 1rem 0;
   text-align: center;
   font-size: 0.95rem;
+  font-family: var(--nav-link-family);
+  font-weight: var(--nav-link-weight);
+  font-style: var(--nav-link-style);
+  background: var(--dark_grey); 
+  -webkit-mask-image: linear-gradient(to top,
+   rgba(0,0,0,1) 0%,
+    rgba(0,0,0,0.95) 80%, 
+   rgba(0,0,0,0.4) 100%);
+   mask-image: linear-gradient(to top, rgba(0,0,0,1) 0%, 
+   rgba(0,0,0,0.94) 80%,
+    rgba(0,0,0,0.3) 100%);
 }
