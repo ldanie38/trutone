@@ -16,35 +16,35 @@ article, aside, canvas, details, embed,
 figure, figcaption, footer, header, hgroup, 
 menu, nav, output, ruby, section, summary,
 time, mark, audio, video {
-	margin: 0;
-	padding: 0;
-	border: 0;
-	font-size: 100%;
-	font: inherit;
-	vertical-align: baseline;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
 }
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure, 
 footer, header, hgroup, menu, nav, section {
-	display: block;
+    display: block;
 }
 body {
-	line-height: 1;
+    line-height: 1;
 }
 ol, ul {
-	list-style: none;
+    list-style: none;
 }
 blockquote, q {
-	quotes: none;
+    quotes: none;
 }
 blockquote:before, blockquote:after,
 q:before, q:after {
-	content: '';
-	content: none;
+    content: '';
+    content: none;
 }
 table {
-	border-collapse: collapse;
-	border-spacing: 0;
+    border-collapse: collapse;
+    border-spacing: 0;
 }
 
 /* CSS variables*/
@@ -203,8 +203,10 @@ main {
    font-style: var(--title-font-style); 
    line-height: 1.1;
   text-decoration: none;
-  color: var(--white)
+  color: var(--white);
 }
+
+
 
 @media (min-width: 768px) {
   .nav-toggle {
@@ -236,6 +238,7 @@ main {
 
   /* desktop nav link font settings */
   .site-header .site-nav ul li a {
+    position: relative; /* required for underline pseudo-element */
     font-family: var(--nav-link-family);
     font-weight: var(--nav-link-weight);
     font-style: var(--nav-link-style);
@@ -243,6 +246,39 @@ main {
     text-decoration: none;
     padding: 0.5rem 0;
     display: inline-block;
+    transition: color .18s ease;
+  }
+
+  /* Underline slide (Option A) */
+  .site-header .site-nav ul li a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 100%;
+    bottom: -6px;               /* distance from text; adjust as needed */
+    height: 3px;                /* line thickness */
+    background: linear-gradient(90deg, var(--red), #ff7b7b);
+    transition: right .22s cubic-bezier(.2,.9,.2,1);
+    pointer-events: none;
+  }
+
+  .site-header .site-nav ul li a:hover::after,
+  .site-header .site-nav ul li a:focus-visible::after {
+    right: 0;
+  }
+
+  /* keyboard focus visual parity */
+  .site-header .site-nav ul li a:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(217,4,41,0.12);
+  }
+
+  /* reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .site-header .site-nav ul li a::after {
+      transition: none;
+      right: 0; /* show underline immediately */
+    }
   }
 
   /* brand (site title) styling for desktop */
@@ -256,23 +292,19 @@ main {
     color: var(--white);
   }
 
-.site-header {
-  background: var(--dark_grey);
-  -webkit-mask-image: linear-gradient(to bottom,
-    rgba(0,0,0,1) 0%,
-    rgba(0,0,0,0.95) 80%,
-    rgba(0,0,0,0.4) 100%);
-  mask-image: linear-gradient(to bottom,
-    rgba(0,0,0,1) 0%,
-    rgba(0,0,0,0.94) 80%,
-    rgba(0,0,0,0.3) 100%);
-}
+  .site-header {
+    background: var(--dark_grey);
+    -webkit-mask-image: linear-gradient(to bottom,
+      rgba(0,0,0,1) 0%,
+      rgba(0,0,0,0.95) 80%,
+      rgba(0,0,0,0.4) 100%);
+    mask-image: linear-gradient(to bottom,
+      rgba(0,0,0,1) 0%,
+      rgba(0,0,0,0.94) 80%,
+      rgba(0,0,0,0.3) 100%);
+  }
 
-
-
-}
-
-
+} /* end media query */
 
 
 /* end of nav media*/
