@@ -49,11 +49,10 @@ table {
 
 
 /** Global Dtyling */
-
-
 body{
-    background-color: blueviolet;
+    background-color:pink;
 }
+
 
 /*  hamburger icon */
 .nav-toggle{background:none;border:0;padding:8px;cursor:pointer}
