@@ -49,9 +49,7 @@ table {
 
 
 /** Global Dtyling */
-body{
-    background-color:pink;
-}
+
 
 
 /*  hamburger icon */
@@ -66,3 +64,25 @@ body{
 
 /* visible state */
 .site-nav.open{display:block}
+
+
+
+/* Mobile-first: hamburger visible, nav hidden (already present) */
+.nav-toggle { display: inline-block; }
+
+.header-inner { 
+    display: flex; 
+    align-items: center; 
+    justify-content: space-between; 
+    gap: 1rem; }
+.site-nav { margin-left: auto; }
+
+
+/* Desktop: hide hamburger, show nav as horizontal menu */
+@media (min-width: 768px) {
+  .nav-toggle { display: none; }           /* hide hamburger button */
+  .site-nav { display: block !important; } /* show nav */
+  .site-nav ul { display: flex; gap: 1rem; align-items: center; }
+  .site-nav li { margin: 0; }
+  .site-nav a { display: inline-block; padding: 0.5rem 0; }
+}

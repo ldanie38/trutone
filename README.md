@@ -47,6 +47,7 @@ docker compose --env-file .env -f docker/docker-compose.yml exec -it web python 
 cd /Users/luadaniele/trutone/trutone/trutone_repo
 docker compose --env-file .env -f docker/docker-compose.yml up -d --build
 docker compose --env-file .env -f docker/docker-compose.yml logs --tail=200 -f web
+docker compose --env-file .env -f docker/docker-compose.yml run --rm web python manage.py collectstatic --noinput
 
 # build and resTART
 docker compose -f docker/docker-compose.yml --env-file .env build web
