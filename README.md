@@ -12,6 +12,14 @@ python manage.py runserver
 ##run tests##
 python manage.py test
 
+# Use when you want to build and prepare the app but don’t need to watch logs (e.g., CI, background start).
+make start 
+
+# Use when you want to build and then immediately monitor the web service output during development or debugging.
+make dev
+
+# You can run the individual targets separately: make build, make collectstatic, make logs.
+
 # rebuild web image if you changed Dockerfile or installed dj_database_url
 docker compose --env-file .env -f docker/docker-compose.yml up --build -d
 
