@@ -1,8 +1,4 @@
-/* http://meyerweb.com/eric/tools/css/reset/ 
-   v2.0 | 20110126
-   License: none (public domain)
-*/
-
+/* Reset (Meyer) v2.0 */
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -12,48 +8,31 @@ b, u, i, center,
 dl, dt, dd, ol, ul, li,
 fieldset, form, label, legend,
 table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed, 
-figure, figcaption, footer, header, hgroup, 
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
 menu, nav, output, ruby, section, summary,
 time, mark, audio, video {
-    margin: 0;
-    padding: 0;
-    border: 0;
-    font-size: 100%;
-    font: inherit;
-    vertical-align: baseline;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
 }
-/* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure, 
+article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
-    display: block;
+  display: block;
 }
-body {
-    line-height: 1;
-}
-ol, ul {
-    list-style: none;
-}
-blockquote, q {
-    quotes: none;
-}
+body { line-height: 1; }
+ol, ul { list-style: none; }
+blockquote, q { quotes: none; }
 blockquote:before, blockquote:after,
-q:before, q:after {
-    content: '';
-    content: none;
-}
-table {
-    border-collapse: collapse;
-    border-spacing: 0;
-}
+q:before, q:after { content: ''; content: none; }
+table { border-collapse: collapse; border-spacing: 0; }
 
-/* CSS variables*/
-
-:root {
+/* Variables */
+:root{
   --title-font-family: "good-times", sans-serif;
- /*  "industry", sans-serif; */
- /*"good-times-bad-times", sans-serif;*/
-
   --title-font-weight: 700;
   --title-font-style: normal;
 
@@ -64,30 +43,19 @@ table {
   --dark_grey: #415a77;
   --white: #fafaff;
   --red: #d90429;
-
-  --dark_grey-rgb: 52, 58, 64;
-  --white-rgb: 250, 250, 255;
 }
 
-
-/** Global Styling mobile first */
-
-html, body {
-  height: 100%;
-  margin: 0;
-}
-
+/* Global layout (mobile-first) */
+html, body { height: 100%; margin: 0; }
 body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  color: var(--white);
+  background:red;
 }
-
-
-/* main content grows to fill available space */
-main {
-  flex: 1 0 auto;
-}
+main { flex: 1 0 auto; }
 
 .container {
   max-width: 1100px;
@@ -95,12 +63,24 @@ main {
   padding: 0 1rem;
 }
 
-/*  hamburger icon */
-
-.hamburger{display:block;width:22px;height:2px;background:var(--white);position:relative}
-.hamburger::before,.hamburger::after{content:"";position:absolute;left:0;width:22px;height:2px;background:var(--white)}
-.hamburger::before{top:-7px}
-.hamburger::after{top:7px}
+/* Hamburger icon */
+.hamburger {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--white);
+  position: relative;
+}
+.hamburger::before, .hamburger::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 22px;
+  height: 2px;
+  background: var(--white);
+}
+.hamburger::before { top: -7px; }
+.hamburger::after  { top: 7px; }
 
 .nav-toggle {
   background: none;
@@ -111,31 +91,27 @@ main {
   align-items: center;
 }
 
-/* hide nav by default (mobile) */
-.site-nav{display:none}
+/* Mobile nav (hidden by default) */
+.site-nav { display: none; }
 
-/* ensure header and brand sit above the mobile overlay */
-.header-inner,
-.site-header,
-.brand {
+/* Ensure header and brand sit above overlay */
+.header-inner, .site-header, .brand {
   position: relative;
-  z-index: 10001; /* higher than the overlay's z-index */
+  z-index: 10001;
 }
 
-/* visible state */
-/* Mobile overlay when hamburger opens */
+/* Mobile overlay when open */
 .site-nav.open {
-  display: flex;                    /* show as flex column */
+  display: flex;
   flex-direction: column;
-  align-items: center;              /* center links horizontally */
-  justify-content: center;          /* center links vertically */
-  position: fixed;                  /* overlay the whole viewport */
-  inset: 0;                          /* top:0; right:0; bottom:0; left:0 */
-  z-index: 9999;                     /* sit above header content */
-  padding: 2rem;                     /* breathing room for links */
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  padding: 2rem;
+  background: rgba(0,0,0,0.85);
 }
-
-/* style the list for the centered overlay */
 .site-nav.open ul {
   display: flex;
   flex-direction: column;
@@ -145,78 +121,130 @@ main {
   padding: 0;
   font-family: var(--nav-link-family);
 }
-
 .site-nav.open a {
-  font-size: 1rem;             
+  font-size: 1rem;
   text-decoration: none;
   color: inherit;
 }
 
-
-
-
-.nav-toggle { display: inline-block; }
-
-.header-inner { 
-    display: flex; 
-    align-items: center; 
-    justify-content: space-between; 
-    gap: 1rem; }
-.site-nav { 
-    margin-left: auto; 
-}
-
+/* Header (single consolidated block) */
 .site-header {
-  position: fixed;        /* fixed keeps header visible while scrolling */
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  color:var(--white);
-  background-color: var(--dark_grey);
   z-index: 1000;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-
+  color: var(--white);
+  overflow: visible;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+  background: var(--dark_grey);
+  will-change: background-position, transform;
+  -webkit-transform: translateZ(0);
 }
 
+/* Inner soft mask to hide hairline artifacts */
+.site-header::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 6px;
+  background: linear-gradient(180deg, rgba(0,0,0,0.18), rgba(0,0,0,0));
+  pointer-events: none;
+  z-index: 1;
+}
 
+/* Header inner layout */
 .header-inner {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  max-width: 1100px;      /* readable line length */
-  margin: 0 auto;         /* center horizontally */
+  max-width: 1100px;
+  margin: 0 auto;
   padding: 0.75rem 1rem;
-    /* vertical and horizontal padding */
 }
 
-.site-nav a{
-    color: var(--white);
-    
-}
+/* Nav basics */
+.site-nav { margin-left: auto; }
+.site-nav a { color: var(--white); text-decoration: none; }
 
+/* Brand (simple, readable) */
+/* HTML: <a class="brand">SurfQuest</a> */
 .brand {
-
-  font-family: var(--title-font-family); 
-  font-weight:500;
+  position: relative;
+  display: inline-block;
+  font-family: var(--title-font-family);
+  font-weight: 500;
+  font-style: var(--title-font-style);
   font-size: 1.2rem;
-   font-style: var(--title-font-style); 
-   line-height: 1.1;
-  text-decoration: none;
+  line-height: 1.1;
   color: var(--white);
+  text-decoration: none;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  z-index: 2;
+  padding: 0.05rem 0;
+  text-shadow: 0 1px 0 rgba(255,255,255,0.06), 0 2px 6px rgba(0,0,0,0.35);
 }
 
+/* Underline glow — desktop nav */
+.site-header .site-nav ul li a {
+  position: relative;
+  padding: 0.5rem 0;
+  color: var(--white);
+  text-decoration: none;
+  transition: color .18s ease;
+}
 
+/* glow line */
+.site-header .site-nav ul li a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 100%;
+  bottom: -6px;                 /* distance from text — tweak as needed */
+  height: 3px;                  /* thickness */
+  background: var(--red);       /* base color of the line */
+  box-shadow: 0 0 8px rgba(217,4,41,0.55), 0 0 18px rgba(217,4,41,0.28);
+  border-radius: 2px;
+  transition: right .22s cubic-bezier(.2,.9,.2,1), box-shadow .22s ease;
+  pointer-events: none;
+}
 
+/* reveal and intensify glow on hover/focus */
+.site-header .site-nav ul li a:hover::after,
+.site-header .site-nav ul li a:focus-visible::after {
+  right: 0;
+  box-shadow: 0 0 12px rgba(217,4,41,0.75), 0 0 28px rgba(217,4,41,0.40);
+}
+
+/* keyboard focus visual parity */
+.site-header .site-nav ul li a:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(217,4,41,0.12);
+}
+
+/* Footer */
+.site-footer {
+  flex-shrink: 0;
+  padding: 1rem 0;
+  text-align: center;
+  font-size: 0.95rem;
+  font-family: var(--nav-link-family);
+  font-weight: var(--nav-link-weight);
+  font-style: var(--nav-link-style);
+  background: var(--dark_grey);
+  color: var(--white);
+  -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.95) 80%, rgba(0,0,0,0.4) 100%);
+  mask-image: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.95) 80%, rgba(0,0,0,0.4) 100%);
+}
+
+/* Responsive desktop rules */
 @media (min-width: 768px) {
-  .nav-toggle {
-    display: none; /* hide hamburger button */
-  }
-
-  .site-nav {
-    display: block !important; /* show nav */
-  }
-
+  .nav-toggle { display: none; }
+  .site-nav { display: block !important; }
   .site-nav ul {
     display: flex;
     gap: 2.5rem;
@@ -224,11 +252,7 @@ main {
     margin: 0;
     padding: 0;
   }
-
-  .site-nav li {
-    margin: 0;
-  }
-
+  .site-nav li { margin: 0; }
   .site-nav a {
     padding: 0.5rem 0;
     display: inline-block;
@@ -236,9 +260,9 @@ main {
     color: var(--white);
   }
 
-  /* desktop nav link font settings */
+  /* Desktop nav link font settings */
   .site-header .site-nav ul li a {
-    position: relative; /* required for underline pseudo-element */
+    position: relative;
     font-family: var(--nav-link-family);
     font-weight: var(--nav-link-weight);
     font-style: var(--nav-link-style);
@@ -249,83 +273,22 @@ main {
     transition: color .18s ease;
   }
 
-  /* Underline slide (Option A) */
-  .site-header .site-nav ul li a::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    right: 100%;
-    bottom: -6px;               /* distance from text; adjust as needed */
-    height: 3px;                /* line thickness */
-    background: linear-gradient(90deg, var(--red), #ff7b7b);
-    transition: right .22s cubic-bezier(.2,.9,.2,1);
-    pointer-events: none;
+  /* Larger brand on desktop */
+  .brand {
+    font-size: 2rem;
+    font-weight: var(--title-font-weight);
   }
+}
 
-  .site-header .site-nav ul li a:hover::after,
-  .site-header .site-nav ul li a:focus-visible::after {
+/* Accessibility: reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .site-header .site-nav ul li a::after {
+    transition: none;
     right: 0;
   }
-
-  /* keyboard focus visual parity */
-  .site-header .site-nav ul li a:focus-visible {
-    outline: none;
-    box-shadow: 0 0 0 3px rgba(217,4,41,0.12);
-  }
-
-  /* reduced motion */
-  @media (prefers-reduced-motion: reduce) {
-    .site-header .site-nav ul li a::after {
-      transition: none;
-      right: 0; /* show underline immediately */
-    }
-  }
-
-  /* brand (site title) styling for desktop */
-  .brand {
-    font-family: var(--title-font-family);
-    font-weight: var(--title-font-weight);
-    font-style: var(--title-font-style);
-    font-size: 2rem;
-    line-height: 1.1;
-    text-decoration: none;
-    color: var(--white);
-  }
-
-  .site-header {
-    background: var(--dark_grey);
-    -webkit-mask-image: linear-gradient(to bottom,
-      rgba(0,0,0,1) 0%,
-      rgba(0,0,0,0.95) 80%,
-      rgba(0,0,0,0.4) 100%);
-    mask-image: linear-gradient(to bottom,
-      rgba(0,0,0,1) 0%,
-      rgba(0,0,0,0.94) 80%,
-      rgba(0,0,0,0.3) 100%);
-  }
-
-} /* end media query */
-
-
-/* end of nav media*/
-
-
-.site-footer {
-  flex-shrink: 0;
-  background:var(--dark_grey);
-  color:var(--white);
-  padding: 1rem 0;
-  text-align: center;
-  font-size: 0.95rem;
-  font-family: var(--nav-link-family);
-  font-weight: var(--nav-link-weight);
-  font-style: var(--nav-link-style);
-  background: var(--dark_grey); 
-  -webkit-mask-image: linear-gradient(to top,
-   rgba(0,0,0,1) 0%,
-    rgba(0,0,0,0.95) 80%, 
-   rgba(0,0,0,0.4) 100%);
-   mask-image: linear-gradient(to top, rgba(0,0,0,1) 0%, 
-   rgba(0,0,0,0.94) 80%,
-    rgba(0,0,0,0.3) 100%);
 }
+
+/* Utility: ensure no accidental borders/outlines create hairlines */
+* { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+.site-header, .site-header * { border-top: 0 !important; outline: 0 !important; }
+
