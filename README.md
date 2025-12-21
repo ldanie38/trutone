@@ -51,11 +51,21 @@ docker compose --env-file .env -f docker/docker-compose.yml exec web python mana
 # (optional) create admin user
 docker compose --env-file .env -f docker/docker-compose.yml exec -it web python manage.py createsuperuser
 
+# restart the compose stack (rebuild if you changed code) 
+docker compose -f docker/docker-compose.yml down 
+docker compose -f docker/docker-compose.yml up -d --build
+
 # go to repo root, then restart web !!!!!!!!!!!!!!!!!!! ----- !!!!!!!!!!!!!!!!
 cd /Users/luadaniele/trutone/trutone/trutone_repo
 docker compose --env-file .env -f docker/docker-compose.yml up -d --build
 docker compose --env-file .env -f docker/docker-compose.yml logs --tail=200 -f web
 docker compose --env-file .env -f docker/docker-compose.yml run --rm web python manage.py collectstatic --noinput
+
+## Run a final collectstatic in the container and restart:
+bash
+docker compose -f docker/docker-compose.yml run --rm web python manage.py collectstatic --noinput
+docker compose -f docker/docker-compose.yml down
+docker compose -f docker/docker-compose.yml up -d
 
 # build and resTART
 docker compose -f docker/docker-compose.yml --env-file .env build web
