@@ -40,9 +40,10 @@ table { border-collapse: collapse; border-spacing: 0; }
   --nav-link-weight: 500;
   --nav-link-style: normal;
 
-  --dark_grey: #415a77;
-  --white: #fafaff;
-  --red: #d90429;
+
+  --dark_grey:#fafaff;
+  --white:#3e6680;
+   --red: #d90429;
 }
 
 /* Global layout (mobile-first) */
@@ -53,7 +54,7 @@ body {
   min-height: 100vh;
   font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
   color: var(--white);
-  background:red;
+  background:#f8f9fa;
 }
 main { flex: 1 0 auto; }
 
@@ -138,22 +139,11 @@ main { flex: 1 0 auto; }
   overflow: visible;
   box-shadow: 0 2px 8px rgba(0,0,0,0.12);
   background: var(--dark_grey);
-  will-change: background-position, transform;
-  -webkit-transform: translateZ(0);
-}
+  -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.99) 30%, rgba(0,0,0,0.45) 100%); 
+  mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.99) 30%, rgba(0,0,0,0.45) 100%); }
 
-/* Inner soft mask to hide hairline artifacts */
-.site-header::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  height: 6px;
-  background: linear-gradient(180deg, rgba(0,0,0,0.18), rgba(0,0,0,0));
-  pointer-events: none;
-  z-index: 1;
-}
+
+
 
 /* Header inner layout */
 .header-inner {
@@ -277,6 +267,7 @@ main { flex: 1 0 auto; }
   .brand {
     font-size: 2rem;
     font-weight: var(--title-font-weight);
+
   }
 }
 
