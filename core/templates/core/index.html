@@ -14,36 +14,22 @@
 </head>
 <body>
 <header class="site-header">
-  <div class="container header-inner">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 190 100" width="190" height="100" role="img" aria-label="Flag logo">
-  <!-- Background -->
-  <rect width="190" height="100" rx="6" fill="#ffffff"/>
-  <!-- Stripes (3 red bars) -->
-  <rect x="0" y="0" width="190" height="30" fill="#b22234"/>
-  <rect x="0" y="35" width="190" height="30" fill="#b22234"/>
-  <rect x="0" y="70" width="190" height="30" fill="#b22234"/>
-  <!-- Canton -->
-  <rect x="0" y="0" width="76" height="56" fill="#3c3b6e"/>
-  <!-- Single star in canton -->
-  <polygon points="38,14 41,24 52,24 43,30 46,40 38,34 30,40 33,30 24,24 35,24" fill="#fff"/>
-</svg>
-
+  <div class="header-inner">
     <a class="brand" href="/">Tru-Tone Metal</a>
 
-    <button id="navToggle" class="nav-toggle" aria-controls="siteNav" aria-expanded="false" aria-label="Open navigation">
-      <span class="hamburger" aria-hidden="true"></span>
-    </button>
-
-    <nav id="siteNav" class="site-nav" aria-hidden="true">
-      <ul>
-        <li><a href="/">Home</a></li>
-        <li><a href="/about/">About Us</a></li>
-        <li><a href="/services/">Services</a></li>
-        <li><a href="/contact/">Contact</a></li>
-      </ul>
+<input id="navToggle" class="nav-toggle" type="checkbox" />
+ <label for="navToggle" class="nav-toggle-label" aria-hidden="false"> 
+    <span class="hamburger" aria-hidden="true"></span> </label> 
+    <nav class="site-nav" role="navigation" aria-label="Main">
+     <ul> <li><a href="/">Home</a></li>
+         <li><a href="/about/">About</a></li>
+          <li><a href="/services/">Services</a></li> 
+    </ul> 
     </nav>
   </div>
 </header>
+
+
 
   <main class="container">
     {% block content %}
