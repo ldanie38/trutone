@@ -121,7 +121,29 @@ main { flex: 1 0 auto; }
     padding: .75rem 1rem; 
     color: var(--font_color);
      text-decoration: none; 
-     border-radius: 8px; }
+     border-radius: 8px; 
+   }
+
+.site-nav a {
+  display: inline-block;
+  padding: .75rem 0;                 /* vertical padding only; keep horizontal padding off */
+  color: var(--font_color);
+  text-decoration: none;
+  background-image: linear-gradient(var(--red), var(--red));
+  background-repeat: no-repeat;
+  background-size: 0% 2px;           /* start hidden */
+  background-position: 0 100%;
+  transition: background-size .22s ease;
+  margin-inline: .65rem; /* space between the a  */
+}
+
+/* reveal underline on hover/focus */
+.site-nav a:hover,
+.site-nav a:focus-visible {
+  background-size: 100% 2px;         /* grows to match text width */
+}
+
+
 
 .site-nav {
   max-height: calc(100vh - var(--nav-height) - 24px);
@@ -216,7 +238,8 @@ main { flex: 1 0 auto; }
         white-space: nowrap; }
 
 
-
+/* show nav when checked (checkbox sibling before nav) */ 
+.nav-toggle:checked ~ .site-nav { opacity:1; pointer-events:auto; transform: translateY(0) scale(1); }
 
 /* desktop override / desktop: show horizontal menu*/
 @media (min-width: 768px) {
@@ -230,11 +253,11 @@ main { flex: 1 0 auto; }
     display: flex;
     align-items: center;
     gap: var(--gap, 1rem);
+    justify-content: flex-end; /* brand left, nav pushed by margin-left */
   }
 
   /* push nav to the far right */
   .site-nav {
-    margin-left: auto;  
     position: static;
     visibility: visible;
     opacity: 1;
@@ -249,57 +272,29 @@ main { flex: 1 0 auto; }
     z-index: auto;
     margin-left: auto !important; /* push nav to the right */ width: auto !important; /* don't force full-width centered block */ max-width: none !important; /* remove earlier max-width that centers it */ 
     padding: 0; position: static; background: transparent; box-shadow: none;
+    margin-left: auto; 
+    margin-right: 70px; 
+    width: auto; 
+
+
   }
 
 /* make the list align to the right inside the nav */ 
 .site-nav ul { 
-    display: flex; gap: 1rem; justify-content: flex-end; 
-    align-items: center; margin: 0; padding: 0; width: auto; }
-
-.site-nav a { white-space: nowrap; }
-}
-
-
-
-
-
-/* show nav when checked (checkbox sibling before nav) */ 
-.nav-toggle:checked ~ .site-nav { opacity:1; pointer-events:auto; transform: translateY(0) scale(1); }
-
-@media (min-width: 768px) {
-  /* ensure header is a flex container and brand stays left */
-  .header-inner {
     display: flex;
+     gap: 1rem; 
+    justify-content: flex-end; 
     align-items: center;
-    gap: var(--gap, 1rem);
-    justify-content: flex-end; /* brand left, nav pushed by margin-left */
+     margin: 0; 
+     padding: 0; 
+     width: auto; }
 
-  }
-
- 
-
-.site-nav { 
-    margin-left: auto; 
-    margin-right: 70px; 
-    position: static; /* ensure it participates in flex flow */ 
-    width: auto; 
-    max-width: none;
-
-  }
-
-  /* compact list aligned to the right inside the nav */
-  .site-nav ul {
-    display: flex !important;
-    gap: 1rem;
-    justify-content: flex-end;
-    align-items: center;
-    margin: 0;
-    padding: 0;
-    width: auto;
-  }
-
-  .site-nav a { white-space: nowrap; }
+.site-nav a { white-space: nowrap;margin-inline: .75rem; }
 }
+
+
+
+
 
 
 
@@ -328,4 +323,178 @@ a:focus, button:focus, label:focus {
   outline: 3px solid rgba(62,102,128,0.18);
   outline-offset: 2px;
 }
+
+
+
+
+
+
+/* @media for very small screen */
+/* Very small screens: phones (adjust max-width as needed) */
+/* Force vertical nav on small phones */
+/* Mobile: checkbox toggle controls visibility + hamburger morph */
+@media (max-width: 420px) {
+  /* hide menu by default on mobile */
+  .site-nav {
+    visibility: hidden;
+    opacity: 0;
+    transform: translateY(-6px) scale(.98);
+    pointer-events: none;
+    transition: opacity .22s ease, transform .22s ease, visibility .01s linear .22s;
+    position: absolute !important;
+    top: calc(var(--nav-height) + 6px) !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: .5rem !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    max-height: calc(100vh - var(--nav-height) - 12px) !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    margin: 0 auto !important;
+  }
+
+  /* show when checkbox is checked */
+  .nav-toggle:checked ~ .site-nav {
+    visibility: visible !important;
+    opacity: 1 !important;
+    transform: none !important;
+    pointer-events: auto !important;
+  }
+
+  /* Force the list into a column and stretch items when menu is visible */
+  .nav-toggle:checked ~ .site-nav ul,
+  .site-nav ul {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;   /* ensures links fill width */
+    gap: .5rem !important;
+    padding: .25rem 0 !important;
+    margin: 0 !important;
+    white-space: normal !important;
+  }
+
+  /* Make each link full-width tap target and remove inline margins */
+  .nav-toggle:checked ~ .site-nav a,
+  .site-nav a {
+    display: block !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    padding: .75rem 1rem !important;
+    margin: 0 !important;
+    text-align: left !important;
+    white-space: normal !important;
+    background-size: 0% 2px !important;
+    background-position: 0 100% !important;
+    transition: background-size .22s ease !important;
+  }
+
+  /* underline reveal on hover/focus */
+  .nav-toggle:checked ~ .site-nav a:hover,
+  .nav-toggle:checked ~ .site-nav a:focus-visible {
+    background-size: 100% 2px !important;
+  }
+
+  /* hamburger -> X morph (ensure input is immediately before label) */
+  .nav-toggle { position: absolute; width:1px; height:1px; margin:-1px; padding:0; border:0; clip:rect(0 0 0 0); clip-path: inset(50%); overflow:hidden; white-space:nowrap; }
+  .nav-toggle-label { display:inline-grid; place-items:center; width:44px; height:44px; cursor:pointer; z-index:10005; }
+
+  .hamburger { width:20px; height:2px; background:var(--font_color); position:relative; display:block; transition: background .18s ease, transform .18s ease; }
+  .hamburger::before, .hamburger::after { content:""; position:absolute; left:0; width:100%; height:100%; background:var(--font_color); transition: transform .18s ease, opacity .18s ease; }
+  .hamburger::before { transform: translateY(-7px); }
+  .hamburger::after  { transform: translateY(7px); }
+
+  /* morph to X when checked */
+  .nav-toggle:checked + .nav-toggle-label .hamburger { background: transparent; }
+  .nav-toggle:checked + .nav-toggle-label .hamburger::before { transform: rotate(45deg); top:0; }
+  .nav-toggle:checked + .nav-toggle-label .hamburger::after  { transform: rotate(-45deg); top:0; }
+
+  /* ensure nav doesn't inherit desktop margins/justify rules when visible */
+  .nav-toggle:checked ~ .site-nav,
+  .nav-toggle:checked ~ .site-nav ul,
+  .nav-toggle:checked ~ .site-nav li,
+  .nav-toggle:checked ~ .site-nav a {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    justify-content: flex-start !important;
+  }
+}
+
+
+
+
+
+/* very small screen */
+
+
+@media (max-width: 360px) {
+  /* ensure mobile dropdown is full-width and scrollable */
+  .site-nav {
+    position: absolute !important;
+    top: calc(var(--nav-height) + 6px) !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: .5rem !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    max-height: calc(100vh - var(--nav-height) - 12px) !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-6px) scale(.98);
+    transition: opacity .22s ease, transform .22s ease, visibility .01s linear .22s;
+  }
+
+  /* Show when checkbox is checked (existing pattern) OR when #menu is targeted (pure-CSS open) */
+  .nav-toggle:checked ~ .site-nav,
+  :target#menu {
+    visibility: visible !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    transform: none !important;
+  }
+
+  /* Force the list into a vertical column (override earlier row rules) */
+  .site-nav ul,
+  .nav-toggle:checked ~ .site-nav ul,
+  :target#menu ul {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: .5rem !important;
+    padding: .25rem 0 !important;
+    margin: 0 !important;
+    white-space: normal !important;
+  }
+
+  /* Make each link a full-width tap target and remove inline margins */
+  .site-nav a {
+    display: block !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    padding: .75rem 1rem !important;
+    margin: 0 !important;
+    text-align: left !important;
+    font-size: .95rem !important;
+    line-height: 1.2 !important;
+    white-space: normal !important;
+    background-size: 0% 2px !important;
+    background-position: 0 100% !important;
+    transition: background-size .22s ease !important;
+  }
+
+  /* underline reveal on hover/focus */
+  .site-nav a:hover,
+  .site-nav a:focus-visible {
+    background-size: 100% 2px !important;
+  }
+}
+
 
