@@ -99,8 +99,13 @@ main { flex: 1 0 auto; }
 }
 
 /* Brand */
+/* 3D enhancement for .brand — preserves your existing styling */
+/* Subtle 3D lift — preserves your font and spacing */
 .brand {
-  flex: 0 1 auto; min-width: 0;
+  position: relative;
+  /* preserve existing declarations (restate to ensure specificity) */
+  flex: 0 1 auto;
+  min-width: 0;
   font-family: var(--title-font-family);
   font-weight: var(--title-font-weight);
   font-style: var(--title-font-style);
@@ -113,6 +118,59 @@ main { flex: 1 0 auto; }
   align-items: center;
   gap: .5rem;
   z-index: 10002;
+
+  /* 3D specifics */
+  --b-elev: 6px;
+  --b-blur: 10px;
+  --b-shadow: rgba(16,24,40,0.12);
+  will-change: transform, box-shadow;
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+
+/* crisp, readable lift for text */
+.brand > * {
+  position: relative;
+  z-index: 2;
+  text-shadow: 0 1px 0 rgba(255,255,255,0.85), 0 3px 10px rgba(16,24,40,0.06);
+}
+
+/* soft surface highlight */
+.brand::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: 6px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0));
+  pointer-events: none;
+  mix-blend-mode: overlay;
+}
+
+/* subtle drop shadow / extrusion */
+.brand::after {
+  content: "";
+  position: absolute;
+  left: calc(var(--b-elev) * 0.5);
+  top: calc(var(--b-elev) * 0.5);
+  right: calc(var(--b-elev) * -0.5);
+  bottom: calc(var(--b-elev) * -0.5);
+  z-index: 0;
+  border-radius: 8px;
+  background: var(--b-shadow);
+  filter: blur(var(--b-blur));
+  opacity: 0.9;
+  pointer-events: none;
+}
+
+/* gentle hover lift */
+.brand:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(16,24,40,0.10); }
+
+
+
+/* optional: reduce effect on very small screens */
+@media (max-width: 420px) {
+  .brand { --brand-elev: 4px; --brand-blur: 6px; }
+  .brand::after { border-radius: 6px; }
 }
 
 
