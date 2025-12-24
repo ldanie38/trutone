@@ -241,11 +241,30 @@ main { flex: 1 0 auto; }
 /* show nav when checked (checkbox sibling before nav) */ 
 .nav-toggle:checked ~ .site-nav { opacity:1; pointer-events:auto; transform: translateY(0) scale(1); }
 
-/* desktop override / desktop: show horizontal menu*/
-@media (min-width: 768px) {
-  .nav-toggle-label { display: none; }
 
+
+/* Footer */
+.site-footer {
+  flex-shrink: 0;
+  padding: 1rem 0;
+  text-align: center;
+  font-size: 0.95rem;
+  font-family: var(--nav-link-family);
+  font-weight: var(--nav-link-weight);
+  font-style: var(--nav-link-style);
+  background: var(--back_color);
+  color: var(--font_color);
+  -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.95) 80%, rgba(0,0,0,0.4) 100%);
+  mask-image: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.95) 80%, rgba(0,0,0,0.4) 100%);
 }
+
+/* Focus ring for keyboard users */
+a:focus, button:focus, label:focus {
+  outline: 3px solid rgba(62,102,128,0.18);
+  outline-offset: 2px;
+}
+
+/* desktop override / desktop: show horizontal menu*/
 
 @media (min-width: 768px) {
 
@@ -289,50 +308,16 @@ main { flex: 1 0 auto; }
      padding: 0; 
      width: auto; }
 
+.nav-toggle-label { display: none; }
+
 .site-nav a { white-space: nowrap;margin-inline: .75rem; }
-}
-
-
-
-
-
-
-
-
-/* end of hamburger*/
-
-
-
-/* Footer */
-.site-footer {
-  flex-shrink: 0;
-  padding: 1rem 0;
-  text-align: center;
-  font-size: 0.95rem;
-  font-family: var(--nav-link-family);
-  font-weight: var(--nav-link-weight);
-  font-style: var(--nav-link-style);
-  background: var(--back_color);
-  color: var(--font_color);
-  -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.95) 80%, rgba(0,0,0,0.4) 100%);
-  mask-image: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.95) 80%, rgba(0,0,0,0.4) 100%);
-}
-
-/* Focus ring for keyboard users */
-a:focus, button:focus, label:focus {
-  outline: 3px solid rgba(62,102,128,0.18);
-  outline-offset: 2px;
-}
-
-
-
+}/* end of media large*/
 
 
 
 /* @media for very small screen */
-/* Very small screens: phones (adjust max-width as needed) */
 /* Force vertical nav on small phones */
-/* Mobile: checkbox toggle controls visibility + hamburger morph */
+
 @media (max-width: 420px) {
   /* hide menu by default on mobile */
   .site-nav {
@@ -427,74 +412,6 @@ a:focus, button:focus, label:focus {
 
 
 
-/* very small screen */
 
-
-@media (max-width: 360px) {
-  /* ensure mobile dropdown is full-width and scrollable */
-  .site-nav {
-    position: absolute !important;
-    top: calc(var(--nav-height) + 6px) !important;
-    left: 0 !important;
-    right: 0 !important;
-    width: 100% !important;
-    max-width: 100% !important;
-    padding: .5rem !important;
-    background: transparent !important;
-    box-shadow: none !important;
-    border-radius: 0 !important;
-    max-height: calc(100vh - var(--nav-height) - 12px) !important;
-    overflow-y: auto !important;
-    -webkit-overflow-scrolling: touch !important;
-    visibility: hidden;
-    opacity: 0;
-    pointer-events: none;
-    transform: translateY(-6px) scale(.98);
-    transition: opacity .22s ease, transform .22s ease, visibility .01s linear .22s;
-  }
-
-  /* Show when checkbox is checked (existing pattern) OR when #menu is targeted (pure-CSS open) */
-  .nav-toggle:checked ~ .site-nav,
-  :target#menu {
-    visibility: visible !important;
-    opacity: 1 !important;
-    pointer-events: auto !important;
-    transform: none !important;
-  }
-
-  /* Force the list into a vertical column (override earlier row rules) */
-  .site-nav ul,
-  .nav-toggle:checked ~ .site-nav ul,
-  :target#menu ul {
-    display: flex !important;
-    flex-direction: column !important;
-    gap: .5rem !important;
-    padding: .25rem 0 !important;
-    margin: 0 !important;
-    white-space: normal !important;
-  }
-
-  /* Make each link a full-width tap target and remove inline margins */
-  .site-nav a {
-    display: block !important;
-    width: 100% !important;
-    box-sizing: border-box !important;
-    padding: .75rem 1rem !important;
-    margin: 0 !important;
-    text-align: left !important;
-    font-size: .95rem !important;
-    line-height: 1.2 !important;
-    white-space: normal !important;
-    background-size: 0% 2px !important;
-    background-position: 0 100% !important;
-    transition: background-size .22s ease !important;
-  }
-
-  /* underline reveal on hover/focus */
-  .site-nav a:hover,
-  .site-nav a:focus-visible {
-    background-size: 100% 2px !important;
-  }
-}
 
 
