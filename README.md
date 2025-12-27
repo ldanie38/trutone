@@ -128,3 +128,11 @@ python manage.py runserver 8000
 
 # then test
 curl -i http://localhost:8000/
+
+# after change of a favicon
+docker compose -f docker/docker-compose.yml run --rm web python manage.py collectstatic --noinput
+docker compose -f docker/docker-compose.yml restart web
+docker compose -f docker/docker-compose.yml run --rm web python manage.py findstatic core/favicon-32x32.png
+docker exec -it docker-web-1 ls -la /app/staticfiles/core | grep favicon
+curl -I http://localhost:8000/static/core/favicon-32x32.png
+
