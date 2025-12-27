@@ -192,7 +192,7 @@ main { flex: 1 0 auto; }
   background-size: 0% 2px;           /* start hidden */
   background-position: 0 100%;
   transition: background-size .22s ease;
-  margin-inline: .65rem; /* space between the a  */
+  margin-inline: .55rem; /* space between the a  */
 }
 
 /* reveal underline on hover/focus */
@@ -368,7 +368,7 @@ a:focus, button:focus, label:focus {
 
 .nav-toggle-label { display: none; }
 
-.site-nav a { white-space: nowrap;margin-inline: .75rem; }
+.site-nav a { white-space: nowrap;margin-inline: .75rem;font-weight: bolder; }
 }/* end of media large*/
 
 
