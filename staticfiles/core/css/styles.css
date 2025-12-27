@@ -1,0 +1,475 @@
+/* Reset (Meyer) v2.0 */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+body { line-height: 1; }
+ol, ul { list-style: none; }
+blockquote, q { quotes: none; }
+blockquote:before, blockquote:after,
+q:before, q:after { content: ''; content: none; }
+table { border-collapse: collapse; border-spacing: 0; }
+
+/* ====== Pure-CSS responsive header (uses your variables & font) ====== */
+
+/* Root variables (use your existing values) */
+:root{
+  --title-font-family: "good-times", sans-serif;
+  --title-font-weight: 700;
+  --title-font-style: normal;
+
+  --nav-link-family: "Verdana", sans-serif;
+  --nav-link-weight: 500;
+  --nav-link-style: normal;
+  --nav-height: 56px;
+
+  --gap: 1rem;
+  --nav-height: 64px;
+
+  --back_color: #fafaff;
+  --font_color: #3e6680;
+  --red: #d90429;
+
+  /* helpers */
+  --accent: var(--font_color);
+  --brand: var(--font_color);
+  --muted: rgba(62,102,128,0.7);
+  --surface: var(--back_color);
+  --shadow: rgba(16,24,40,0.08);
+}
+
+/* Layout basics */
+
+/* ensure predictable sizing */
+ *, *::before, *::after { box-sizing: border-box; }
+
+html, body { height: 100%; margin: 0; }
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  color: var(--font_color);
+  background: var(--back_color);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.container { max-width: 1100px; margin: 0 auto; padding: 0 1rem; }
+main { flex: 1 0 auto; }
+
+/* Header */
+.site-header{
+  position: fixed;
+  inset: 0 0 auto 0;
+  background: linear-gradient(180deg, rgba(255,255,255,0.95), var(--back_color));
+  backdrop-filter: blur(6px);
+  box-shadow: 0 6px 18px var(--shadow);
+  z-index: 1000;
+  justify-content: flex-start;
+}
+.header-inner{
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 .875rem;
+  height: var(--nav-height);
+  display: flex;
+  align-items: center;
+  gap: var(--gap);
+  justify-content: space-between;
+}
+
+/* Brand */
+/* 3D enhancement for .brand — preserves your existing styling */
+/* Subtle 3D lift — preserves your font and spacing */
+.brand {
+  position: relative;
+  /* preserve existing declarations (restate to ensure specificity) */
+  flex: 0 1 auto;
+  min-width: 0;
+  font-family: var(--title-font-family);
+  font-weight: var(--title-font-weight);
+  font-style: var(--title-font-style);
+  font-size: 1.5rem;
+  line-height: 1.1;
+  color: var(--font_color);
+  text-decoration: none;
+  letter-spacing: -0.02em;
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  z-index: 10002;
+
+  /* 3D specifics */
+  --b-elev: 6px;
+  --b-blur: 10px;
+  --b-shadow: rgba(16,24,40,0.12);
+  will-change: transform, box-shadow;
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+
+/* crisp, readable lift for text */
+.brand > * {
+  position: relative;
+  z-index: 2;
+  text-shadow: 0 1px 0 rgba(255,255,255,0.85), 0 3px 10px rgba(16,24,40,0.06);
+}
+
+/* soft surface highlight */
+.brand::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: 6px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0));
+  pointer-events: none;
+  mix-blend-mode: overlay;
+}
+
+/* subtle drop shadow / extrusion */
+.brand::after {
+  content: "";
+  position: absolute;
+  left: calc(var(--b-elev) * 0.5);
+  top: calc(var(--b-elev) * 0.5);
+  right: calc(var(--b-elev) * -0.5);
+  bottom: calc(var(--b-elev) * -0.5);
+  z-index: 0;
+  border-radius: 8px;
+  background: var(--b-shadow);
+  filter: blur(var(--b-blur));
+  opacity: 0.9;
+  pointer-events: none;
+}
+
+/* gentle hover lift */
+.brand:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(16,24,40,0.10); }
+
+
+
+/* optional: reduce effect on very small screens */
+@media (max-width: 420px) {
+  .brand { --brand-elev: 4px; --brand-blur: 6px; }
+  .brand::after { border-radius: 6px; }
+}
+
+
+.site-nav a { 
+    display: block; 
+    padding: .75rem 1rem; 
+    color: var(--font_color);
+     text-decoration: none; 
+     border-radius: 8px; 
+   }
+
+.site-nav a {
+  display: inline-block;
+  padding: .75rem 0;                 /* vertical padding only; keep horizontal padding off */
+  color: var(--font_color);
+  text-decoration: none;
+  background-image: linear-gradient(var(--red), var(--red));
+  background-repeat: no-repeat;
+  background-size: 0% 2px;           /* start hidden */
+  background-position: 0 100%;
+  transition: background-size .22s ease;
+  margin-inline: .65rem; /* space between the a  */
+}
+
+/* reveal underline on hover/focus */
+.site-nav a:hover,
+.site-nav a:focus-visible {
+  background-size: 100% 2px;         /* grows to match text width */
+}
+
+
+
+.site-nav {
+  max-height: calc(100vh - var(--nav-height) - 24px);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  z-index: 10003;
+}
+
+
+/* hide checkbox but keep it focusable */ 
+.nav-toggle { 
+    position: absolute; 
+    width: 1px; height: 1px; 
+    margin: -1px; padding: 0; 
+    border: 0; 
+    clip: rect(0 0 0 0);
+     clip-path: inset(50%); 
+     overflow: hidden; 
+     white-space: nowrap; 
+    }
+
+/* label button */ 
+.nav-toggle-label { display:inline-grid; place-items:center; width:44px; height:44px; cursor:pointer; }
+
+/* hamburger lines */ 
+.hamburger { 
+    width:20px; 
+    height:2px; 
+    background:var(--font_color); 
+    position:relative; display:block; } 
+    
+.hamburger::before, .hamburger::after{ 
+        content:"";
+         position:absolute;
+         left:0;
+         width:100%; height:100%; 
+         background:var(--font_color); } 
+         .hamburger::before{ transform: translateY(-7px); } 
+         .hamburger::after { transform: translateY(7px); }
+
+/* morph to X when checked (input must be immediately before label) */
+ .nav-toggle:checked + .nav-toggle-label .hamburger { background: transparent; } 
+ .nav-toggle:checked + .nav-toggle-label .hamburger::before { transform: rotate(45deg); }
+ .nav-toggle:checked + .nav-toggle-label .hamburger::after { transform: rotate(-45deg); }
+
+/* mobile nav hidden by default */ 
+.site-nav { opacity:0; pointer-events:none; transform: translateY(-6px) scale(.98); transition: .22s; }
+
+/* dropdown constrained and scrollable on mobile */
+.site-nav {
+  position: absolute;
+  top: calc(var(--nav-height,64px) + 8px);
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  max-width: 1100px;
+
+    background: transparent; 
+    box-shadow: none; 
+    border-radius: 0;
+    padding: 0;
+
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transform-origin: top center;
+  transform: translateY(-6px) scale(.98);
+  transition: opacity .22s ease, transform .22s ease, visibility .01s linear .22s;
+
+  /* keep it inside the viewport and scrollable */
+  max-height: calc(100vh - var(--nav-height,64px) - 24px);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  z-index: 10010;
+}
+
+/* show when checked */
+.nav-toggle:checked ~ .site-nav {
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0) scale(1);
+}
+
+/* make the list a single horizontal row and allow horizontal scroll */ 
+.nav-toggle:checked ~ .site-nav ul { display: flex;
+     flex-direction: row; gap: .5rem;
+     align-items: center;
+      padding: .25rem;
+       overflow-x: auto; 
+       -webkit-overflow-scrolling: touch;
+        white-space: nowrap; }
+
+
+/* show nav when checked (checkbox sibling before nav) */ 
+.nav-toggle:checked ~ .site-nav { opacity:1; pointer-events:auto; transform: translateY(0) scale(1); }
+
+
+
+/* Footer */
+.site-footer {
+  flex-shrink: 0;
+  padding: 1rem 0;
+  text-align: center;
+  font-size: 0.95rem;
+  font-family: var(--nav-link-family);
+  font-weight: var(--nav-link-weight);
+  font-style: var(--nav-link-style);
+  background: var(--back_color);
+  color: var(--font_color);
+  -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.95) 80%, rgba(0,0,0,0.4) 100%);
+  mask-image: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.95) 80%, rgba(0,0,0,0.4) 100%);
+}
+
+/* Focus ring for keyboard users */
+a:focus, button:focus, label:focus {
+  outline: 3px solid rgba(62,102,128,0.18);
+  outline-offset: 2px;
+}
+
+/* desktop override / desktop: show horizontal menu*/
+
+@media (min-width: 768px) {
+
+  .header-inner {
+    display: flex;
+    align-items: center;
+    gap: var(--gap, 1rem);
+    justify-content: flex-end; /* brand left, nav pushed by margin-left */
+  }
+
+  /* push nav to the far right */
+  .site-nav {
+    position: static;
+    visibility: visible;
+    opacity: 1;
+    pointer-events: auto;
+    transform: none;
+    max-height: none;
+    overflow: visible;
+    padding: 0;
+    background: transparent;
+    box-shadow: none;
+    border-radius: 0;
+    z-index: auto;
+    margin-left: auto !important; /* push nav to the right */ width: auto !important; /* don't force full-width centered block */ max-width: none !important; /* remove earlier max-width that centers it */ 
+    padding: 0; position: static; background: transparent; box-shadow: none;
+    margin-left: auto; 
+    margin-right: 70px; 
+    width: auto; 
+
+
+  }
+
+/* make the list align to the right inside the nav */ 
+.site-nav ul { 
+    display: flex;
+     gap: 1rem; 
+    justify-content: flex-end; 
+    align-items: center;
+     margin: 0; 
+     padding: 0; 
+     width: auto; }
+
+.nav-toggle-label { display: none; }
+
+.site-nav a { white-space: nowrap;margin-inline: .75rem; }
+}/* end of media large*/
+
+
+
+/* @media for very small screen */
+/* Force vertical nav on small phones */
+
+@media (max-width: 420px) {
+  /* hide menu by default on mobile */
+  .site-nav {
+    visibility: hidden;
+    opacity: 0;
+    transform: translateY(-6px) scale(.98);
+    pointer-events: none;
+    transition: opacity .22s ease, transform .22s ease, visibility .01s linear .22s;
+    position: absolute !important;
+    top: calc(var(--nav-height) + 6px) !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: .5rem !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    max-height: calc(100vh - var(--nav-height) - 12px) !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    margin: 0 auto !important;
+  }
+
+  /* show when checkbox is checked */
+  .nav-toggle:checked ~ .site-nav {
+    visibility: visible !important;
+    opacity: 1 !important;
+    transform: none !important;
+    pointer-events: auto !important;
+  }
+
+  /* Force the list into a column and stretch items when menu is visible */
+  .nav-toggle:checked ~ .site-nav ul,
+  .site-nav ul {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;   /* ensures links fill width */
+    gap: .5rem !important;
+    padding: .25rem 0 !important;
+    margin: 0 !important;
+    white-space: normal !important;
+  }
+
+  /* Make each link full-width tap target and remove inline margins */
+  .nav-toggle:checked ~ .site-nav a,
+  .site-nav a {
+    display: block !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    padding: .75rem 1rem !important;
+    margin: 0 !important;
+    text-align: left !important;
+    white-space: normal !important;
+    background-size: 0% 2px !important;
+    background-position: 0 100% !important;
+    transition: background-size .22s ease !important;
+  }
+
+  /* underline reveal on hover/focus */
+  .nav-toggle:checked ~ .site-nav a:hover,
+  .nav-toggle:checked ~ .site-nav a:focus-visible {
+    background-size: 100% 2px !important;
+  }
+
+  /* hamburger -> X morph (ensure input is immediately before label) */
+  .nav-toggle { position: absolute; width:1px; height:1px; margin:-1px; padding:0; border:0; clip:rect(0 0 0 0); clip-path: inset(50%); overflow:hidden; white-space:nowrap; }
+  .nav-toggle-label { display:inline-grid; place-items:center; width:44px; height:44px; cursor:pointer; z-index:10005; }
+
+  .hamburger { width:20px; height:2px; background:var(--font_color); position:relative; display:block; transition: background .18s ease, transform .18s ease; }
+  .hamburger::before, .hamburger::after { content:""; position:absolute; left:0; width:100%; height:100%; background:var(--font_color); transition: transform .18s ease, opacity .18s ease; }
+  .hamburger::before { transform: translateY(-7px); }
+  .hamburger::after  { transform: translateY(7px); }
+
+  /* morph to X when checked */
+  .nav-toggle:checked + .nav-toggle-label .hamburger { background: transparent; }
+  .nav-toggle:checked + .nav-toggle-label .hamburger::before { transform: rotate(45deg); top:0; }
+  .nav-toggle:checked + .nav-toggle-label .hamburger::after  { transform: rotate(-45deg); top:0; }
+
+  /* ensure nav doesn't inherit desktop margins/justify rules when visible */
+  .nav-toggle:checked ~ .site-nav,
+  .nav-toggle:checked ~ .site-nav ul,
+  .nav-toggle:checked ~ .site-nav li,
+  .nav-toggle:checked ~ .site-nav a {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    justify-content: flex-start !important;
+  }
+}
+
+
+
+
+
+
+
+
