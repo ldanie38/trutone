@@ -45,7 +45,42 @@
   <main class="container">
     {% block content %}
 
+<div class="hero-slideshow" id="heroSlideshow">
+  <div class="slide active" data-type="video">
+    <video id="heroVideo" muted playsinline preload="metadata" poster="{% static 'core/video-poster.jpg' %}">
+      <source src="{% static 'core/video1.mp4' %}" type="video/mp4">
+      <source src="{% static 'core/sikorsky.mov' %}" type="video/quicktime">
+    </video>
+  </div>
 
+  <div class="slide" data-type="image">
+    <img src="{% static 'core/b-2.jpeg' %}" alt="Slide 1">
+  </div>
+
+  <div class="slide" data-type="image">
+    <img src="{% static 'core/apache.jpeg' %}" alt="Slide 2">
+  </div>
+
+  <div class="slide" data-type="image">
+    <img src="{% static 'core/f-15.jpeg' %}" alt="Slide 3">
+  </div>
+
+  <div class="slide" data-type="image">
+    <img src="{% static 'core/boeing.jpeg' %}" alt="Slide 4">
+  </div>
+
+  <div class="slide" data-type="image">
+    <img src="{% static 'core/sikorsky2.jpeg' %}" alt="Slide 5">
+  </div>
+</div>
+
+
+
+
+
+
+
+  
 
 
 
@@ -53,9 +88,11 @@
   </main>
 
   <footer class="site-footer">
-    <div class="container">© Tru-Tone Metal</div>
+    <div class="footer">© Tru-Tone Metal</div>
   </footer>
 
-  <script src="{% static 'core/js/app.js' %}"></script>
+<script src="{% static 'core/js/app.js' %}" defer></script>
+<script src="{% static 'core/js/hero-slideshow.js' %}" defer></script>
+
 </body>
 </html>
