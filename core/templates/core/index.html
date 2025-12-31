@@ -47,7 +47,7 @@
 
 <div class="hero-slideshow" id="heroSlideshow">
   <div class="slide active" data-type="video">
-    <video id="heroVideo" muted playsinline preload="metadata" poster="{% static 'core/video-poster.jpg' %}">
+    <video id="heroVideo" muted playsinline preload="metadata" poster="{% static 'core/preview-poster.jpg' %}">
       <source src="{% static 'core/video1.mp4' %}" type="video/mp4">
       <source src="{% static 'core/sikorsky.mov' %}" type="video/quicktime">
     </video>
@@ -66,14 +66,18 @@
   </div>
 
   <div class="slide" data-type="image">
-    <img src="{% static 'core/boeing.jpeg' %}" alt="Slide 4">
+    <img src="{% static 'core/boeing3.jpeg' %}" alt="Slide 4">
   </div>
 
   <div class="slide" data-type="image">
     <img src="{% static 'core/sikorsky2.jpeg' %}" alt="Slide 5">
   </div>
-</div>
+  <!--  after the slides -->
 
+
+<div class="hero-slogan" aria-hidden="false">
+  <img src="{% static 'core/nadcap4.png' %}" alt="NADCAP accredited" class="slogan-img">
+</div>
 
 
 

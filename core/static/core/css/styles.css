@@ -57,7 +57,68 @@ table { border-collapse: collapse; border-spacing: 0; }
   --surface: var(--back_color);
   --shadow: rgba(16,24,40,0.08);
   --nav-height: 64px; 
+
+
 }
+
+
+/* faded slide end*/
+
+:root{
+  --wash-grayscale: 0.6;    /* 0 = full color, 1 = fully gray */
+  --wash-contrast: 0.85;    /* <1 lowers contrast */
+  --wash-brightness: 1.08;  /* >1 brightens */
+  --wash-sepia: 0.06;       /* tiny warm tone */
+  --wash-overlay: rgba(255,255,255,0.18); /* white wash; change to rgba(0,0,0,0.12) for darken */
+}
+
+/* apply filters to both images and video */
+.hero-slideshow .slide img,
+.hero-slideshow .slide video {
+  filter:
+    grayscale(var(--wash-grayscale))
+    contrast(var(--wash-contrast))
+    brightness(var(--wash-brightness))
+    sepia(var(--wash-sepia));
+  transition: filter 360ms ease, transform 360ms ease;
+  will-change: filter, transform;
+}
+
+/* subtle overlay so washed look is consistent across media */
+.hero-slideshow .slide::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: var(--wash-overlay);
+  mix-blend-mode: normal; /* try overlay or soft-light for different effects */
+  transition: background 360ms ease;
+  z-index: 2;
+}
+
+/* keep media visually behind overlay */
+.hero-slideshow .slide img,
+.hero-slideshow .slide video { position: relative; z-index: 1; }
+
+/* example stronger wash state you can toggle with a class */
+.hero-slideshow.wash-strong .slide img,
+.hero-slideshow.wash-strong .slide video {
+  filter:
+    grayscale(0.85)
+    contrast(0.75)
+    brightness(1.12)
+    sepia(0.08);
+}
+.hero-slideshow.wash-strong .slide::after { background: rgba(255,255,255,0.28); }
+/* faded slide end*/
+
+/* svg*/
+
+
+
+/*svg end*/
+
+
 
 /* Layout basics */
 
@@ -519,8 +580,76 @@ a:focus, button:focus, label:focus {
 
 
 
+/* Nadcap logo */
+
+/* Nadcap badge — place last in your CSS so it wins the cascade */
+.hero-slideshow { position: relative; }
+
+.hero-slideshow .hero-slogan .slogan-img { 
+     max-width: 100%; object-fit: contain; }
+
+.hero-slogan {
+  position: absolute;
+  right: 0.5rem;               /* adjust to move more/less into the corner */
+  top: 0.5rem;
+  z-index: 9999;
+  pointer-events: none;
+  display: block;
+  line-height: 0;
+  max-width: 320px;           /* prevents the badge from taking too much horizontal space */
+  transform-origin: right top;
+}
+
+/* MOBILE baseline: very small phones (smallest) */
+.slogan-img {
+  display: block;
+  width: auto;
+  height: 1.4rem;   
+  width: 40px;          /* tiny phones */
+  max-width: 100%;
+  object-fit: contain;
+}
 
 
 
 
+
+/* laptop / desktop — explicit larger size */
+@media (min-width: 1200px) {
+  .slogan-img {
+    height: 13rem;           /* change this single value to make it bigger/smaller on laptop */
+    max-height: 13rem;
+  }
+}
+
+/* very large screens cap */
+@media (min-width: 1600px) {
+  .slogan-img { height: 15rem; }
+}
+
+/* very large screens cap */
+@media (min-width: 768px)and (max-width:989px) {
+  .slogan-img { height: 6rem;
+ transform: translateY(-20%);/* shift img up */ }
+ 
+}
+
+
+/* very small phones */
+@media (max-width: 420px) {
+  .hero-slideshow .hero-slogan .slogan-img {
+    height: 6rem !important;
+    max-height: 6rem !important;
+transform: translateY(-20%) /* shift img up */
+  }
+}
+
+/* small tablet / large phone (covers 625px width) */
+@media (min-width: 421px) and (max-width: 765px) {
+  .hero-slideshow .hero-slogan .slogan-img {
+    height: 7rem !important;
+    max-height: 8rem !important;
+transform: translateY(-15%);/* shift img up */
+  }
+}
 
