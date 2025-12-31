@@ -582,7 +582,7 @@ a:focus, button:focus, label:focus {
 
 /* Nadcap logo */
 
-/* Nadcap badge — place last in your CSS so it wins the cascade */
+
 .hero-slideshow { position: relative; }
 
 .hero-slideshow .hero-slogan .slogan-img { 
@@ -591,7 +591,7 @@ a:focus, button:focus, label:focus {
 .hero-slogan {
   position: absolute;
   right: 0.5rem;               /* adjust to move more/less into the corner */
-  top: 0.5rem;
+  top: 0.4rem;
   z-index: 9999;
   pointer-events: none;
   display: block;
@@ -609,9 +609,6 @@ a:focus, button:focus, label:focus {
   max-width: 100%;
   object-fit: contain;
 }
-
-
-
 
 
 /* laptop / desktop — explicit larger size */
@@ -638,18 +635,33 @@ a:focus, button:focus, label:focus {
 /* very small phones */
 @media (max-width: 420px) {
   .hero-slideshow .hero-slogan .slogan-img {
-    height: 6rem !important;
+    height: 5rem !important;
     max-height: 6rem !important;
-transform: translateY(-20%) /* shift img up */
+
   }
+  .slogan-img{transform: translateY(-20%) /* shift img up */}
+  .hero-slideshow .hero-slogan { 
+    top: 10rem; /* move the badge down on very small phones */
+     right: 0.5rem; /* keep it near the right corner */
+      z-index: 9999; }
 }
 
 /* small tablet / large phone (covers 625px width) */
 @media (min-width: 421px) and (max-width: 765px) {
+  .hero-slideshow .hero-slogan {
+    left: 0.5rem;
+    right: auto;
+top: 7rem; /* larger top = moves element further down */ bottom: auto;
+    transform-origin: left bottom;
+    z-index: 9999;
+  }
+
   .hero-slideshow .hero-slogan .slogan-img {
     height: 7rem !important;
     max-height: 8rem !important;
-transform: translateY(-15%);/* shift img up */
+    transform: none !important;
   }
 }
+
+/* end of nadcap @media and css*/
 
