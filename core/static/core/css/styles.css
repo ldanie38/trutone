@@ -672,7 +672,7 @@ top: 7rem; /* larger top = moves element further down */ bottom: auto;
   position: relative;
   box-sizing: border-box;
   padding: 3rem 1rem;            /* space inside the section */
-  margin-top: 50px;
+  margin-top: 120px;
   background-color: #c0c0c0;     /* full-bleed background */
   width: 100vw;
   left: 50%;
@@ -687,11 +687,10 @@ top: 7rem; /* larger top = moves element further down */ bottom: auto;
   position: relative;            /* relative so it participates in flow */
   z-index: 20;
   width: min(1100px, 85%);       /* wide but constrained */
-  margin: 0 auto;                /* center the card */
+margin-bottom: 20px; margin-left: auto; margin-right: auto; width: min(1100px, 85%);            /* center the card */
   padding: 2rem;
   background-color: var(--card-bg, #123f4f); /* use a semantic var or explicit color */
   color: #fff;
-  border-radius: 12px;
   box-shadow: 0 18px 40px rgba(16,24,40,0.12);
   transform: translateY(-80px);  /* overlap amount */
 }
