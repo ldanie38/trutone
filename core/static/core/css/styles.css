@@ -682,6 +682,9 @@ top: 7rem; /* larger top = moves element further down */ bottom: auto;
   min-height: 40vh;              /* optional visual height */
 }
 
+/* keep H1 on one line and prevent wrapping */ 
+
+
 /* wide card that overlaps the section visually */
 .about_one {
   position: relative;            /* relative so it participates in flow */
@@ -689,11 +692,78 @@ top: 7rem; /* larger top = moves element further down */ bottom: auto;
   width: min(1100px, 85%);       /* wide but constrained */
 margin-bottom: 20px; margin-left: auto; margin-right: auto; width: min(1100px, 85%);            /* center the card */
   padding: 2rem;
-  background-color: var(--card-bg, #123f4f); /* use a semantic var or explicit color */
+  background-color: var(--font_color); /* use a semantic var or explicit color */
   color: #fff;
   box-shadow: 0 18px 40px rgba(16,24,40,0.12);
   transform: translateY(-80px);  /* overlap amount */
 }
+
+/* Title centered in the card */
+/* responsive, modest H1 size for the card */
+.about_one > h1 {
+  font-size: clamp(1rem, 2.2vw, 1.4rem);
+  line-height: 1.15;
+  font-weight: 900;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+    margin: 0 0 0.75rem 0;
+}
+
+
+/* allow wrapping and slightly smaller text on narrow screens */
+@media (max-width: 820px) {
+  .about_one > h1 {
+    white-space: normal;
+    font-size: 1.25rem;
+    line-height: 1.2;
+  }
+}
+
+
+
+.about_one > p{
+    display: block;
+  text-align: center;
+  margin: 0 0 0.75rem 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: 500;
+
+}
+
+
+
+/* image grid: one row with three small images */
+.about_one .hero-images {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.3rem;
+  margin-top: 1rem;
+  align-items: center;
+  justify-items: center;
+}
+
+/* make images much smaller and consistent */
+.about_one .hero-images img.hero-image {
+  width: 300px;           /* adjust to taste */
+  height: 200px;          /* keeps consistent aspect */
+  object-fit: cover;
+  border-radius: 6px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.18);
+  display: block;
+}
+
+/* responsive: stack images on small screens */
+@media (max-width: 820px) {
+  .about_one > h1 { white-space: normal; text-align: center; }
+  .about_one .hero-images { grid-template-columns: 1fr; gap: 0.5rem; }
+  .about_one .hero-images img.hero-image { width: 100%; height: auto; max-width: 420px; }
+}
+
+
 
 /* ensure overlap is removed on small screens */
 @media (max-width: 820px) {
