@@ -129,6 +129,13 @@ python manage.py runserver 8000
 # then test
 curl -i http://localhost:8000/
 
+# run migrations and create superuser
+docker compose -f docker/docker-compose.yml --env-file .env exec web python manage.py migrate
+
+# restart the compose stack (rebuild if you changed code) 
+docker compose -f docker/docker-compose.yml down 
+docker compose -f docker/docker-compose.yml up -d --build
+
 # after change of a favicon
 docker compose -f docker/docker-compose.yml run --rm web python manage.py collectstatic --noinput
 docker compose -f docker/docker-compose.yml restart web
