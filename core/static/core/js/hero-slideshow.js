@@ -137,3 +137,57 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
+
+
+document.addEventListener('DOMContentLoaded', function () {
+  const btn = document.getElementById('backToTop');
+  if (!btn) return;
+
+  const showAfter = 300; // px scrolled before showing button
+  let lastKnownScroll = 0;
+  let ticking = false;
+
+  function onScroll() {
+    lastKnownScroll = window.scrollY || window.pageYOffset;
+    if (!ticking) {
+      window.requestAnimationFrame(() => {
+        btn.classList.toggle('show', lastKnownScroll > showAfter);
+        ticking = false;
+      });
+      ticking = true;
+    }
+  }
+
+  // Smooth scroll to top
+  function scrollToTop() {
+    // Use native smooth behavior if available
+    if ('scrollBehavior' in document.documentElement.style) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+    // Fallback smooth scroll
+    const duration = 400;
+    const start = window.scrollY || window.pageYOffset;
+    const startTime = performance.now();
+    function step(now) {
+      const t = Math.min(1, (now - startTime) / duration);
+      const eased = 1 - Math.pow(1 - t, 3); // easeOutCubic
+      window.scrollTo(0, Math.round(start * (1 - eased)));
+      if (t < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
+  // Events
+  window.addEventListener('scroll', onScroll, { passive: true });
+  btn.addEventListener('click', function (e) {
+    e.preventDefault();
+    scrollToTop();
+    btn.blur();
+  });
+
+  // Optional: show when keyboard navigates to top of page
+  window.addEventListener('keyup', function (e) {
+    if (e.key === 'Home') btn.classList.add('show');
+  });
+});
