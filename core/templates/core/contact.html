@@ -1,22 +1,113 @@
 {% extends "core/index.html" %}
 
 {% block title %}Contact{% endblock %}
+
 {% block content %}
-  <section class="contact-hero">
+<section class="contact-hero">
+  <div class="container">
     <h1>Contact Tru‑Tone Metal</h1>
     <p>Request a quote, schedule pickup, or ask about specifications.</p>
-  </section>
-<form method="post" enctype="multipart/form-data">
-  {% csrf_token %}
-  {{ form.non_field_errors }}
-  {{ form.as_p }}
-  <button type="submit">Send request</button>
-</form>
+  </div>
+</section>
 
+<div class="container contact-page">
+
+  {# show Django messages if you use them #}
+  {% if messages %}
+    <ul class="messages">
+      {% for message in messages %}
+        <li class="message {{ message.tags }}">{{ message }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+
+  <div class="contact-grid">
+    <main class="contact-form">
+      <form method="post" enctype="multipart/form-data" novalidate>
+        {% csrf_token %}
+
+        {# non-field errors #}
+        {% if form.non_field_errors %}
+          <div class="form-errors">
+            {{ form.non_field_errors }}
+          </div>
+        {% endif %}
+
+        {# explicit fields for better control and styling #}
+        <div class="field">
+          <label for="{{ form.name.id_for_label }}">Name</label>
+          {{ form.name }}
+          {{ form.name.errors }}
+        </div>
+
+        <div class="field">
+          <label for="{{ form.company.id_for_label }}">Company</label>
+          {{ form.company }}
+          {{ form.company.errors }}
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="{{ form.email.id_for_label }}">Email</label>
+            {{ form.email }}
+            {{ form.email.errors }}
+          </div>
+          <div class="field">
+            <label for="{{ form.phone.id_for_label }}">Phone</label>
+            {{ form.phone }}
+            {{ form.phone.errors }}
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="{{ form.process.id_for_label }}">Process required</label>
+          {{ form.process }}
+          {{ form.process.errors }}
+        </div>
+
+        <div class="field">
+          <label for="{{ form.quantity.id_for_label }}">Quantity / batch size</label>
+          {{ form.quantity }}
+          {{ form.quantity.errors }}
+        </div>
+
+        <div class="field">
+          <label for="{{ form.turnaround.id_for_label }}">Requested turnaround</label>
+          {{ form.turnaround }}
+          {{ form.turnaround.errors }}
+        </div>
+
+        <div class="field">
+          <label for="{{ form.message.id_for_label }}">Notes / specifications</label>
+          {{ form.message }}
+          {{ form.message.errors }}
+        </div>
+
+        <div class="field">
+          <label for="{{ form.attachment.id_for_label }}">Attach drawing (optional)</label>
+          {{ form.attachment }}
+          {{ form.attachment.errors }}
+        </div>
+
+        {# honeypot hidden field; keep it in the form but visually hidden via CSS #}
+        <div style="position:absolute;left:-9999px;top:auto;overflow:hidden;">
+          <label for="{{ form.website.id_for_label }}">Leave this field blank</label>
+          {{ form.website }}
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary">Send request</button>
+          <a href="tel:+17183865960" class="btn btn-secondary">Call 718‑386‑5960</a>
+        </div>
+      </form>
+    </main>
 
     <aside class="contact-details">
+      <h2>Tru‑Tone Metal</h2>
       <p><strong>Phone:</strong> <a href="tel:+17183865960">718‑386‑5960</a></p>
       <p><strong>Email:</strong> <a href="mailto:james@trutonemetal.com">james@trutonemetal.com</a></p>
+      <p>One block from Jefferson Street L train, Brooklyn, NY</p>
     </aside>
   </div>
+</div>
 {% endblock %}
