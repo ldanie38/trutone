@@ -16,6 +16,27 @@ import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# settings.py
+
+MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / "media"
+
+# limit upload size (bytes) and handlers
+FILE_UPLOAD_MAX_MEMORY_SIZE = 2621440   # 2.5 MB (adjust as needed)
+DATA_UPLOAD_MAX_MEMORY_SIZE = 10485760  # 10 MB for form payloads
+
+
+
+# load env helper you use (example uses os.environ)
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "smtp.sendgrid.net"
+EMAIL_PORT = 587
+EMAIL_HOST_USER = os.environ.get("EMAIL_USER")        # set in environment
+EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_PASSWORD")
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = "no-reply@yourdomain.com"
+SERVER_EMAIL = DEFAULT_FROM_EMAIL
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/

@@ -1,0 +1,22 @@
+{% extends "core/index.html" %}
+
+{% block title %}Contact{% endblock %}
+{% block content %}
+  <section class="contact-hero">
+    <h1>Contact Tru‑Tone Metal</h1>
+    <p>Request a quote, schedule pickup, or ask about specifications.</p>
+  </section>
+<form method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  {{ form.non_field_errors }}
+  {{ form.as_p }}
+  <button type="submit">Send request</button>
+</form>
+
+
+    <aside class="contact-details">
+      <p><strong>Phone:</strong> <a href="tel:+17183865960">718‑386‑5960</a></p>
+      <p><strong>Email:</strong> <a href="mailto:james@trutonemetal.com">james@trutonemetal.com</a></p>
+    </aside>
+  </div>
+{% endblock %}
