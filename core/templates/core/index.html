@@ -29,13 +29,24 @@
  <label for="navToggle" class="nav-toggle-label" aria-hidden="false"> 
     <span class="hamburger" aria-hidden="true"></span> </label> 
     <nav class="site-nav" role="navigation" aria-label="Main">
-     <ul> 
-        <li><a href="/">HOME</a></li>
-         <li><a href="/about/">ABOUT</a></li>
-         <li><a href="/services/">SERVICES</a></li> 
-         <li><a href="/certificates/">CERTIFICATES</a></li>
-         <li><a href="/contact/">CONTACT</a></li>
-    </ul> 
+      <ul>
+        <li>
+          <a href="/" class="{% if request.path == '/' %}active{% endif %}">Home</a>
+        </li>
+      
+        <li>
+          <a href="/about/" class="{% if request.path|slice:':6' == '/about' %}active{% endif %}">About</a>
+        </li>
+      
+        <li>
+          <a href="/services/" class="{% if request.path|slice:':9' == '/services' %}active{% endif %}">Services</a>
+        </li>
+      
+        <li>
+          <a href="/contact/" class="{% if request.path|slice:':8' == '/contact' %}active{% endif %}">Contact</a>
+        </li>
+      </ul>
+       
     </nav>
   </div>
 </header>
@@ -122,10 +133,7 @@
   </main>
 
   <footer class="site-footer">
-    <div class="footer">© Tru-Tone Metal Products, Inc.
-     phone: 718.386.5960 | fax: 718.386.1021 
-
-    </div>
+    <div class="footer"> © Copyright 2026 Tru-Tone Metal Products, Inc. - All Rights Reserved </div>
 
   </footer>
   <!-- Back to top button -->
