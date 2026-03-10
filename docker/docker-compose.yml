@@ -1,5 +1,3 @@
-version: "3.8"
-
 services:
   db:
     image: postgres:15-alpine
@@ -38,6 +36,18 @@ services:
       # for dev, optionally bind-mount source:
       # - ../:/app:delegated
     restart: unless-stopped
+
+  mailpit:
+    image: axllent/mailpit:latest
+    restart: unless-stopped
+    ports:
+      - "1025:1025"   # SMTP
+      - "8025:8025"   # Web UI
+    env_file:
+      - ../.env
+    # disable the built-in healthcheck that requires curl in the image
+    healthcheck:
+      disable: true
 
   adminer:
     image: adminer

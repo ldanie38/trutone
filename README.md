@@ -139,7 +139,45 @@ docker compose -f docker/docker-compose.yml up -d --build
 # after change of a favicon
 docker compose -f docker/docker-compose.yml run --rm web python manage.py collectstatic --noinput
 docker compose -f docker/docker-compose.yml restart web
-docker compose -f docker/docker-compose.yml run --rm web python manage.py findstatic core/favicon-32x32.png
-docker exec -it docker-web-1 ls -la /app/staticfiles/core | grep favicon
-curl -I http://localhost:8000/static/core/favicon-32x32.png
+
+
+# check email satus
+# docker compose
+docker compose -f docker/docker-compose.yml logs web --tail=200
+# or follow live
+docker compose -f docker/docker-compose.yml logs -f web
+
+
+
+Show Mailpit container logs
+
+bash
+docker logs docker-mailpit-1 --tail=200
+Check Mailpit health details
+
+bash
+docker inspect --format='{{json .State}}' docker-mailpit-1 | jq
+Restart the Mailpit container
+
+bash
+docker restart docker-mailpit-1
+docker logs docker-mailpit-1 --tail=200
+Test SMTP connectivity from the web container
+
+bash
+docker compose -f docker/docker-compose.yml exec web bash
+# then inside container
+apt-get update >/dev/null 2>&1 || true
+nc -vz mailpit 1025
+Manual email test from Django shell
+
+bash
+docker compose -f docker/docker-compose.yml exec web python manage.py shell
+# then in the shell
+from django.core.mail import send_mail
+send_mail("Test subject", "Test body", "no-reply@localhost", ["your.email@example.com"])
+Open Mailpit UI in your browser:
+
+Code
+http://localhost:8025 // open mail in browser 
 

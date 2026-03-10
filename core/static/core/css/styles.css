@@ -821,9 +821,9 @@ margin-bottom: 20px; margin-left: auto; margin-right: auto; width: min(1100px, 8
 
 /* Theme variables (adjust to match your palette) */
 :root {
-  --accent: #0f6b6b;
-  --accent-2: #0b4f56;
-  --muted: #9aa6a6;
+ 
+  --accent-2:rgba(62,102,128,0.7);
+  --muted:rgba(62,102,128,0.7);;
   --bg-card: #0f2b2d;
   --surface: #071a1b;
   --white: #ffffff;
@@ -869,14 +869,18 @@ margin-bottom: 20px; margin-left: auto; margin-right: auto; width: min(1100px, 8
 
 /* Contact details card */
 .contact-details {
-  background: linear-gradient(180deg, var(--surface), rgba(0,0,0,0.02));
-  color: var(--white);
-  padding: 1.25rem;
+  padding: 3.25rem;
   border-radius: var(--radius);
   box-shadow: 0 8px 22px rgba(6,12,14,0.28);
   font-size: 0.95rem;
+  line-height: 1.8;
 }
-.contact-details h2 { margin-top: 0; color: var(--accent); font-size: 1.05rem; }
+.contact-details h2 { margin-top: 0; color: var(--font_color); font-size: 1.05rem; }
+.contact-details a {
+  text-decoration: none;
+  color: #3e6680;
+}
+
 
 /* Form fields */
 .field { margin-bottom: 0.9rem; display: block; }
