@@ -924,7 +924,7 @@ margin-bottom: 20px; margin-left: auto; margin-right: auto; width: min(1100px, 8
   border-radius: 8px;
   border: 1px solid rgba(255,255,255,0.06);
   background: rgba(255,255,255,0.02);
-  color: var(--white);
+  color:#212529;
   font-size: 0.95rem;
   transition: box-shadow .15s ease, border-color .15s ease, transform .08s ease;
   box-shadow: inset 0 -1px 0 rgba(0,0,0,0.25);
@@ -948,6 +948,10 @@ margin-bottom: 20px; margin-left: auto; margin-right: auto; width: min(1100px, 8
 
 /* Buttons */
 .form-actions { display: flex; gap: .6rem; align-items: center; margin-top: .75rem; flex-wrap: wrap; }
+.form-actions a{
+  color: var(--font_color);
+  text-decoration: none;
+}
 .btn {
   display: inline-flex;
   align-items: center;
