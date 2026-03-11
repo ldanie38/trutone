@@ -132,6 +132,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   gap: 20px;
+  overflow-y: auto;
 }
 .container { max-width: 1100px;
      margin: 0 auto; 
@@ -714,14 +715,23 @@ margin-bottom: 20px; margin-left: auto; margin-right: auto; width: min(1100px, 8
 /* responsive, modest H1 size for the card */
 .about_one > h1 {
   font-size: clamp(1rem, 2.2vw, 1.4rem);
-  line-height: 1.15;
+  line-height: 1.25;
   font-weight: 900;
   text-align: center;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-    margin: 0 0 0.75rem 0;
+  white-space: normal;        /* allow wrapping */
+  overflow: visible;         /* don't clip */
+  text-overflow: clip;
+  margin: 0 0 0.75rem 0;
 }
+.about_one > p {
+  white-space: normal;
+  overflow: visible;
+  text-overflow: clip;
+  margin: 0 0 0.75rem 0;
+  color: #fff;
+  line-height: 1.5;
+}
+
 
 
 /* allow wrapping and slightly smaller text on narrow screens */
@@ -1010,7 +1020,42 @@ margin-bottom: 20px; margin-left: auto; margin-right: auto; width: min(1100px, 8
 }
 
 @media (max-width: 420px) {
-  .contact-hero { padding: 5rem 0; }
+  .contact-hero { padding: 5rem 0 !important; }
 }
 
 
+/* Override */
+
+/* Force the about card to participate in normal flow and show all text */
+.about-section, .about-section * {
+  overflow: visible !important;
+  height: auto !important;
+  min-height: 0 !important;
+}
+
+
+/* Allow headline and paragraphs to wrap and display fully */
+.about_one > h1 {
+  white-space: normal !important;
+  overflow: visible !important;
+  text-overflow: clip !important;
+  display: block !important;
+  max-width: 60ch !important;
+  margin: 0 auto 0.75rem !important;
+  line-height: 1.25 !important;
+  font-size: clamp(1rem, 2.2vw, 1.8rem) !important;
+}
+
+.about_one > p {
+  display: block !important;
+  white-space: normal !important;
+  overflow: visible !important;
+  margin: 0 0 0.75rem !important;
+  line-height: 1.5 !important;
+  color: #fff !important;
+}
+
+
+
+
+/* Override End */
